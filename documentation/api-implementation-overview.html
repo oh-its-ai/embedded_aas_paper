@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        h2 {
+            color: #444;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+        }
+        h2::after {
+            content: "^";
+            margin-left: 8px;
+            transform: rotate(180deg);
+            display: inline-block;
+            font-size: 16px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        th {
+            text-align: left;
+            padding: 10px;
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+        .method {
+            font-weight: bold;
+            width: 80px;
+        }
+        .get { color: #2196F3; }
+        .put { color: #FF9800; }
+        .post { color: #4CAF50; }
+        .delete { color: #F44336; }
+        .patch { color: #00BCD4; }
+        
+        .endpoint {
+            font-family: monospace;
+            padding-right: 20px;
+        }
+        .implementation-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        .fully {
+            background-color: #4CAF50;
+        }
+        .partially {
+            background-color: #FF9800;
+        }
+        .not {
+            background-color: #F44336;
+        }
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .stat-box {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            padding: 15px;
+            width: 30%;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .progress-bar {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+        .comments {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>API Documentation Status Tracker</h1>
+    
+    <div class="stats-container">
+        <div class="stat-box">
+            <div>Fully Implemented</div>
+            <div class="stat-number" id="fully-percentage">0%</div>
+            <div class="progress-bar">
+                <div class="progress-fill fully" style="width: 0%"></div>
+            </div>
+        </div>
+        <div class="stat-box">
+            <div>Partially Implemented</div>
+            <div class="stat-number" id="partially-percentage">0%</div>
+            <div class="progress-bar">
+                <div class="progress-fill partially" style="width: 0%"></div>
+            </div>
+        </div>
+        <div class="stat-box">
+            <div>Not Implemented</div>
+            <div class="stat-number" id="not-percentage">0%</div>
+            <div class="progress-bar">
+                <div class="progress-fill not" style="width: 0%"></div>
+            </div>
+        </div>
+    </div>
+    
+    <h2>Asset Administration Shell API</h2>
+    <table id="aas-api-table">
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>Endpoint</th>
+                <th>Implementation Status</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows will be populated by JavaScript -->
+        </tbody>
+    </table>
+
+    <h2>Serialization API</h2>
+    <table id="serialization-api-table">
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>Endpoint</th>
+                <th>Implementation Status</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows will be populated by JavaScript -->
+        </tbody>
+    </table>
+
+    <h2>Description API</h2>
+    <table id="description-api-table">
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>Endpoint</th>
+                <th>Implementation Status</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows will be populated by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // Predefined endpoint data
+        const apiData = {
+            "aas": [
+                { "method": "GET", "endpoint": "/aas", "status": "fully", "comment": "Core functionality complete" },
+                { "method": "PUT", "endpoint": "/aas", "status": "not", "comment": "Supports all required fields" },
+                { "method": "GET", "endpoint": "/aas/$reference", "status": "fully", "comment": "Returns proper reference format" },
+                { "method": "GET", "endpoint": "/aas/asset-information", "status": "fully", "comment": "Complete implementation" },
+                { "method": "PUT", "endpoint": "/aas/asset-information", "status": "not", "comment": "All fields supported" },
+                { "method": "GET", "endpoint": "/aas/asset-information/thumbnail", "status": "not", "comment": "Limited image formats supported" },
+                { "method": "PUT", "endpoint": "/aas/asset-information/thumbnail", "status": "not", "comment": "Size restrictions apply" },
+                { "method": "DELETE", "endpoint": "/aas/asset-information/thumbnail", "status": "not", "comment": "Works as expected" },
+                { "method": "GET", "endpoint": "/aas/submodel-refs", "status": "fully", "comment": "Lists all references correctly" },
+                { "method": "POST", "endpoint": "/aas/submodel-refs", "status": "not", "comment": "Creation works properly" },
+                { "method": "DELETE", "endpoint": "/aas/submodel-refs/{submodelIdentifier}", "status": "not", "comment": "Deletion works properly" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}", "status": "fully", "comment": "Returns complete models" },
+                { "method": "PUT", "endpoint": "/aas/submodels/{submodelIdentifier}", "status": "not", "comment": "Updates all fields" },
+                { "method": "PATCH", "endpoint": "/aas/submodels/{submodelIdentifier}", "status": "not", "comment": "Some fields cannot be updated" },
+                { "method": "DELETE", "endpoint": "/aas/submodels/{submodelIdentifier}", "status": "not", "comment": "Complete deletion" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}/$metadata", "status": "fully", "comment": "Returns all metadata" },
+                { "method": "PATCH", "endpoint": "/aas/submodels/{submodelIdentifier}/$metadata", "status": "not", "comment": "Limited fields can be modified" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}/$value", "status": "partially", "comment": "Does return the whole submodel AAS and not ValueOnly Notation" },
+                { "method": "PATCH", "endpoint": "/aas/submodels/{submodelIdentifier}/$value", "status": "not", "comment": "Limited update capabilities" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}/$reference", "status": "fully", "comment": "Complete implementation" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}/$path", "status": "fully", "comment": "Returns correct paths" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements", "status": "fully", "comment": "Lists all elements" },
+                { "method": "POST", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements", "status": "not", "comment": "Creation working" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/$metadata", "status": "fully", "comment": "Returns complete metadata" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/$value", "status": "partially", "comment": "Only Properties are returned as values" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/$reference", "status": "fully", "comment": "Reference retrieval works" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/$path", "status": "fully", "comment": "Path calculation correct" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}", "status": "fully", "comment": "Element retrieval works" },
+                { "method": "POST", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}", "status": "not", "comment": "Creation working as expected" },
+                { "method": "PUT", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}", "status": "not", "comment": "Complete update support" },
+                { "method": "PATCH", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}", "status": "not", "comment": "Limited field support" },
+                { "method": "DELETE", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}", "status": "not", "comment": "Deletion works properly" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/$metadata", "status": "fully", "comment": "Returns all metadata" },
+                { "method": "PATCH", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/$metadata", "status": "not", "comment": "Some fields cannot be updated" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/$value", "status": "fully", "comment": "Value retrieval works" },
+                { "method": "PATCH", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/$value", "status": "partially", "comment": "Some values cannot be updated" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/$reference", "status": "fully", "comment": "Reference format correct" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/$path", "status": "fully", "comment": "Path calculation correct" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/attachment", "status": "partially", "comment": "Some attachment types not supported" },
+                { "method": "PUT", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/attachment", "status": "partially", "comment": "Size limitations apply" },
+                { "method": "DELETE", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/attachment", "status": "fully", "comment": "Deletion works properly" },
+                { "method": "POST", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke", "status": "not", "comment": "Not implemented yet" },
+                { "method": "POST", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke/$value", "status": "not", "comment": "Not implemented yet" },
+                { "method": "POST", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke-async", "status": "not", "comment": "Not implemented yet" },
+                { "method": "POST", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke-async/$value", "status": "not", "comment": "Not implemented yet" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/operation-status/{handleId}", "status": "not", "comment": "Not implemented yet" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/operation-results/{handleId}", "status": "not", "comment": "Not implemented yet" },
+                { "method": "GET", "endpoint": "/aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/operation-results/{handleId}/$value", "status": "not", "comment": "Not implemented yet" }
+            ],
+            "serialization": [
+                { "method": "GET", "endpoint": "/serialization", "status": "fully", "comment": "Supports all required formats" }
+            ],
+            "description": [
+                { "method": "GET", "endpoint": "/description", "status": "fully", "comment": "Returns complete API description" }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Populate tables
+            populateTable('aas-api-table', apiData.aas);
+            populateTable('serialization-api-table', apiData.serialization);
+            populateTable('description-api-table', apiData.description);
+            
+            // Calculate and display statistics
+            updateStatistics();
+        });
+
+        function populateTable(tableId, data) {
+            const tableBody = document.getElementById(tableId).querySelector('tbody');
+            tableBody.innerHTML = '';
+            
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                
+                // Method cell
+                const methodCell = document.createElement('td');
+                methodCell.className = `method ${item.method.toLowerCase()}`;
+                methodCell.textContent = item.method;
+                row.appendChild(methodCell);
+                
+                // Endpoint cell
+                const endpointCell = document.createElement('td');
+                endpointCell.className = 'endpoint';
+                endpointCell.textContent = item.endpoint;
+                row.appendChild(endpointCell);
+                
+                // Status cell
+                const statusCell = document.createElement('td');
+                const statusSpan = document.createElement('div');
+                statusSpan.className = `implementation-status ${item.status}`;
+                
+                let statusText = '';
+                if (item.status === 'fully') statusText = 'Fully implemented';
+                else if (item.status === 'partially') statusText = 'Partially implemented';
+                else statusText = 'Not implemented';
+                
+                statusSpan.textContent = statusText;
+                statusCell.appendChild(statusSpan);
+                row.appendChild(statusCell);
+                
+                // Comment cell
+                const commentCell = document.createElement('td');
+                commentCell.className = 'comments';
+                commentCell.textContent = item.comment;
+                row.appendChild(commentCell);
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        function updateStatistics() {
+            // Combine all API data
+            const allEndpoints = [
+                ...apiData.aas,
+                ...apiData.serialization,
+                ...apiData.description
+            ];
+            
+            // Count implementations
+            const stats = {
+                fully: 0,
+                partially: 0,
+                not: 0,
+                total: allEndpoints.length
+            };
+            
+            allEndpoints.forEach(endpoint => {
+                stats[endpoint.status]++;
+            });
+            
+            // Calculate percentages
+            const percentages = {
+                fully: Math.round((stats.fully / stats.total) * 100),
+                partially: Math.round((stats.partially / stats.total) * 100),
+                not: Math.round((stats.not / stats.total) * 100)
+            };
+            
+            // Update UI
+            document.getElementById('fully-percentage').textContent = `${percentages.fully}%`;
+            document.getElementById('partially-percentage').textContent = `${percentages.partially}%`;
+            document.getElementById('not-percentage').textContent = `${percentages.not}%`;
+            
+            // Update progress bars
+            document.querySelector('.progress-fill.fully').style.width = `${percentages.fully}%`;
+            document.querySelector('.progress-fill.partially').style.width = `${percentages.partially}%`;
+            document.querySelector('.progress-fill.not').style.width = `${percentages.not}%`;
+        }
+    </script>
+</body>
+</html>

@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 from pympler import asizeof
 from aas_core3.jsonization import to_jsonable
 
-from embedded_system.aas_api.aas_api import AasApi
-from embedded_system.aas_templates.chiller import Chiller
-from embedded_system.aas_templates.performance_env import PerformanceEnv
+from aas_api.aas_api import AasApi
+from aas_templates.chiller import Chiller
+from aas_templates.performance_env import PerformanceEnv
 from types import ModuleType, FunctionType
 from gc import get_referents
 BLACKLIST = type, ModuleType, FunctionType
@@ -18,7 +18,7 @@ BLACKLIST = type, ModuleType, FunctionType
 class TestMetrics(unittest.TestCase):
 
     start_submodels = 0
-    end_submodels = 1000
+    end_submodels = 100
     step_size = 1
 
     def getsize(self, obj):
@@ -127,16 +127,9 @@ class TestMetrics(unittest.TestCase):
         self.assertTrue(True)
 
     def test_json_serialization_speed_ms_growing_aas(self):
-        # make X requests to the endpoint: 192.168.0.50/metrics/jsonSerialize
         """
-        per request you get:
-         {
-            "metric": "json serialization speed",
-            "timestamp": time.ticks_us(),  # Current time in microseconds
-            "result": elapsed_time,  # Time taken for serialization in microseconds
-            "json_size": json_size
-        }
-        please measure the result for over X attemps and display in a bar diagram
+        make X requests to the endpoint: 192.168.0.50/metrics/jsonSerialize
+        and measures serialisation speed in milliseconds
         """
         import requests
         import time
@@ -210,6 +203,7 @@ class TestMetrics(unittest.TestCase):
             plt.show()
 
         self.assertTrue(True)
+
     def test_aas_request_full_response_time_ms(self):
         """
         this test makes X requests to the endpoint: 192.168.0.50/api/v3.0/aas
@@ -294,7 +288,6 @@ class TestMetrics(unittest.TestCase):
             plt.show()
 
         self.assertTrue(True)
-
 
     def test_measure_json_serialization_with_chiller_size(self):
         """
